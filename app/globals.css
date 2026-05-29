@@ -1,26 +1,498 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-heading);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Vintage Pop Retro custom colors */
+  --color-retro-amber: var(--retro-amber);
+  --color-retro-rose: var(--retro-rose);
+  --color-retro-teal: var(--retro-teal);
+  --color-retro-cream: var(--retro-cream);
+  --color-retro-espresso: var(--retro-espresso);
+  --color-retro-gold: var(--retro-gold);
+  --color-retro-coral: var(--retro-coral);
+  --color-retro-mint: var(--retro-mint);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================
+   VINTAGE POP RETRO THEME — WCAG AA+
+   ========================================== */
+
+:root {
+  /* Primary vintage palette */
+  --retro-amber: #C8922A;
+  --retro-rose: #B85C5F;
+  --retro-teal: #1B6B6B;
+  --retro-cream: #FDF6EC;
+  --retro-espresso: #2C1810;
+  --retro-gold: #DAA520;
+  --retro-coral: #CD5C5C;
+  --retro-mint: #98D4BB;
+
+  /* shadcn mapped to vintage */
+  --background: #FDF6EC;
+  --foreground: #2C1810;
+  --card: #FFF8F0;
+  --card-foreground: #2C1810;
+  --popover: #FFF8F0;
+  --popover-foreground: #2C1810;
+  --primary: #1B6B6B;
+  --primary-foreground: #FDF6EC;
+  --secondary: #F5E6D0;
+  --secondary-foreground: #2C1810;
+  --muted: #F0E0C8;
+  --muted-foreground: #6B5744;
+  --accent: #C8922A;
+  --accent-foreground: #2C1810;
+  --destructive: #B85C5F;
+  --border: #D4C4A8;
+  --input: #D4C4A8;
+  --ring: #1B6B6B;
+
+  /* Chart colors for admin */
+  --chart-1: #1B6B6B;
+  --chart-2: #C8922A;
+  --chart-3: #B85C5F;
+  --chart-4: #DAA520;
+  --chart-5: #98D4BB;
+
+  --radius: 0.75rem;
+
+  --sidebar: #FDF6EC;
+  --sidebar-foreground: #2C1810;
+  --sidebar-primary: #1B6B6B;
+  --sidebar-primary-foreground: #FDF6EC;
+  --sidebar-accent: #F5E6D0;
+  --sidebar-accent-foreground: #2C1810;
+  --sidebar-border: #D4C4A8;
+  --sidebar-ring: #1B6B6B;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================
+   RETRO DECORATIVE STYLES
+   ========================================== */
+
+/* Subtle paper grain texture overlay */
+.retro-grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Sunburst background from the poster */
+.retro-sunburst-bg {
+  background: repeating-conic-gradient(
+    from 0deg,
+    #9C571B 0deg 15deg,
+    #C0732A 15deg 30deg
+  );
+  background-attachment: fixed;
+}
+
+/* Halftone dot pattern */
+.retro-halftone::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, #2C1810 1.5px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Retro starburst badge */
+.retro-starburst {
+  position: relative;
+}
+.retro-starburst::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  background: var(--retro-amber);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  z-index: 10;
+}
+
+/* Soft card with normal shadow */
+.retro-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+.retro-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Polaroid style card with tape */
+.polaroid-card {
+  background: #FFFDF9;
+  border: 12px solid #FFFDF9;
+  border-bottom-width: 32px;
+  border-radius: 2px;
+  box-shadow: 
+    inset 0 0 0 1px rgba(0,0,0,0.1),
+    4px 6px 12px rgba(0, 0, 0, 0.4);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.polaroid-card::before,
+.polaroid-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  width: 35px;
+  height: 14px;
+  background-color: rgba(232, 222, 203, 0.85);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+.polaroid-card::before {
+  left: 10%;
+  transform: rotate(-15deg);
+}
+.polaroid-card::after {
+  right: 10%;
+  transform: rotate(10deg);
+}
+
+.polaroid-card:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 20;
+  box-shadow: 
+    inset 0 0 0 1px rgba(0,0,0,0.1),
+    8px 12px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Title text with 3D shadow like the poster */
+.poster-title {
+  font-family: var(--font-display);
+  color: #F9E5BA;
+  -webkit-text-stroke: 2px #3E2723;
+  text-shadow: 
+    1px 1px 0 #3E2723,
+    2px 2px 0 #3E2723,
+    3px 3px 0 #3E2723,
+    4px 4px 0 #3E2723,
+    5px 5px 0 #3E2723,
+    6px 6px 0 #3E2723,
+    8px 8px 10px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+}
+.poster-subtitle {
+  font-family: var(--font-display);
+  color: #E68E24;
+  -webkit-text-stroke: 2px #3E2723;
+  text-shadow: 
+    1px 1px 0 #3E2723,
+    2px 2px 0 #3E2723,
+    3px 3px 0 #3E2723,
+    4px 4px 0 #3E2723,
+    5px 5px 0 #3E2723,
+    7px 7px 8px rgba(0,0,0,0.5);
+}
+.poster-badge {
+  background: #F9E5BA;
+  border: 3px solid #3E2723;
+  border-radius: 12px;
+  box-shadow: 
+    2px 2px 0 #3E2723,
+    4px 4px 0 #3E2723,
+    6px 6px 0 #3E2723;
+  font-family: var(--font-heading);
+  color: #3E2723;
+}
+
+/* Vintage TV wrapper */
+.vintage-tv {
+  background-color: #8C9975;
+  border: 12px solid #5C4A3D;
+  border-radius: 40px;
+  box-shadow: 
+    inset 0 0 40px rgba(0,0,0,0.5),
+    10px 10px 20px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+}
+.vintage-tv::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 10px; right: 10px; bottom: 10px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  pointer-events: none;
+}
+.vintage-tv::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+}
+.retro-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--retro-amber), var(--retro-teal));
+  border-radius: 2px;
+}
+
+/* Normal button glow */
+.retro-glow {
+  box-shadow: 0 4px 12px rgba(200, 146, 42, 0.25);
+}
+.retro-glow:hover {
+  box-shadow: 0 6px 16px rgba(200, 146, 42, 0.4);
+}
+
+/* Polaroid selected state */
+.polaroid-selected {
+  border-color: #F9E5BA;
+  background: #F9E5BA;
+  box-shadow: 
+    inset 0 0 0 1px rgba(0,0,0,0.1),
+    0 0 0 4px #E68E24,
+    8px 12px 20px rgba(0, 0, 0, 0.6);
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 20;
+}
+
+/* ==========================================
+   RACING GAME SELECTION STYLES
+   ========================================== */
+
+/* Slanted Banner Container */
+.racing-banner {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  transform: skewY(-5deg);
+  border: 4px solid var(--retro-espresso);
+  overflow: visible;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* Banner Content (Inherits skew) */
+.racing-banner-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+/* Flash animation when selected */
+@keyframes screen-flash {
+  0% { opacity: 0; background: white; }
+  10% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+.flash-overlay {
+  position: absolute;
+  inset: -50px;
+  background: white;
+  z-index: 50;
+  pointer-events: none;
+  border-radius: 20px;
+}
+
+/* Glowing Aura behind character */
+@keyframes pulse-aura {
+  0% { filter: drop-shadow(0 0 10px var(--retro-amber)) drop-shadow(0 0 20px var(--retro-amber)); }
+  50% { filter: drop-shadow(0 0 25px var(--retro-gold)) drop-shadow(0 0 40px var(--retro-amber)); }
+  100% { filter: drop-shadow(0 0 10px var(--retro-amber)) drop-shadow(0 0 20px var(--retro-amber)); }
+}
+
+.racing-aura {
+  animation: pulse-aura 2s infinite ease-in-out;
+  z-index: 30;
+}
+
+/* Badge class for class name (XI RPL A) */
+.racing-badge {
+  background: var(--retro-gold);
+  color: var(--retro-espresso);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  border: 2px solid var(--retro-espresso);
+  box-shadow: 2px 2px 0 var(--retro-espresso);
+  padding: 4px 12px;
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+
+/* Text styles for candidate name */
+.racing-name {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+  color: white;
+  -webkit-text-stroke: 2px var(--retro-espresso);
+  text-shadow: 3px 3px 0 var(--retro-espresso), 6px 6px 15px rgba(0,0,0,0.6);
+  text-transform: uppercase;
+  line-height: 1;
+}
+@media (min-width: 640px) {
+  .racing-name {
+    font-size: 5rem;
+  }
+}
+
+.retro-selected {
+  animation: retro-pulse 2s ease-in-out infinite;
+  border-color: var(--retro-teal) !important;
+  border-width: 3px;
+}
+
+/* Confetti animation for thank you page */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall linear forwards;
+  z-index: 50;
+}
+
+/* Chart bar animation */
+@keyframes bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.chart-bar {
+  transform-origin: bottom;
+  animation: bar-grow 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Focus visible for WCAG */
+*:focus-visible {
+  outline: 3px solid var(--retro-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  background: var(--retro-teal);
+  color: var(--retro-cream);
+  z-index: 100;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--retro-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--retro-amber);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--retro-teal);
 }
